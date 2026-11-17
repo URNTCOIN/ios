@@ -1,0 +1,24 @@
+name: BLEWorkbench
+options:
+  bundleIdPrefix: dev.fieldlab
+  deploymentTarget:
+    iOS: "26.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    TARGETED_DEVICE_FAMILY: "1"
+targets:
+  BLEWorkbench:
+    type: application
+    platform: iOS
+    sources:
+      - path: BLEWorkbench
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.fieldlab.bleworkbench
+        PRODUCT_NAME: BLE Workbench
+        INFOPLIST_FILE: BLEWorkbench/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_STYLE: Automatic
+        SWIFT_EMIT_LOC_STRINGS: YES
