@@ -1,0 +1,38 @@
+name: Build unsigned iOS IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate Xcode project
+        run: xcodegen generate
+      - name: Archive for iOS device
+        run: |
+          xcodebuild \
+            -project BLEWorkbench.xcodeproj \
+            -scheme BLEWorkbench \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/BLEWorkbench.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            archive
+      - name: Package unsigned IPA
+        run: |
+          mkdir -p build/ipa/Payload
+          cp -R build/BLEWorkbench.xcarchive/Products/Applications/BLEWorkbench.app build/ipa/Payload/
+          cd build/ipa
+          /usr/bin/zip -qry ../../BLEWorkbench-unsigned.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BLEWorkbench-unsigned-ipa
+          path: BLEWorkbench-unsigned.ipa
+          if-no-files-found: error

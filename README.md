@@ -20,4 +20,4 @@ xcodegen generate
 open BLEWorkbench.xcodeproj
 ```
 
-The project targets iOS 26+ and uses SwiftUI Liquid Glass effects. The local Linux environment cannot run Xcode; the included GitHub Actions workflow builds an unsigned iOS Simulator target on a macOS runner.
+The project targets iOS 26+ and uses SwiftUI Liquid Glass effects. The local Linux environment cannot run Xcode. GitHub Actions builds an unsigned device IPA on a macOS runner. Download the `BLEWorkbench-unsigned-ipa` artifact from a completed Actions run and open it in Impactor to sign and install it. A free Apple account generally needs the app refreshed every 7 days.
